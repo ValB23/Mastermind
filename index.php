@@ -29,3 +29,23 @@ $_SESSION['locked_code'] = $locked_code; // I decided to hide the code in a sess
 $max_guess = 10;
 $_SESSION['max_guess'] = $max_guess;
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Mastermind Game </title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header></header>
+
+    <main></main>
+
+    <footer></footer>
+</body>
+
+
+
+</html>
+<script src="js/jquery-3.7.1.js"></script>
