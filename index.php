@@ -2,7 +2,7 @@
 
 session_start();
 $images_filename = "img1.gif|img2.gif|img3.gif|img4.gif|img5.gif|img6.gif|";
-$image = explode("|", $images_filenames);
+$image = explode("|", $images_filename);
 
 $code = "012345";
 $code = str_shuffle($code);
@@ -11,7 +11,7 @@ $locked_code = '';
 $symbol_counts = [];
 
 for($i = 0; $i < strlen($code); $i++){
-    $index = rand(0, strlen($code) - 1);
+    $index = random_int(0, strlen($code) - 1);
     $symbol = $code[$index];
 
     if(!isset($symbol_counts[$symbol])){
@@ -38,11 +38,27 @@ $_SESSION['max_guess'] = $max_guess;
 </head>
 
 <body>
-    <header></header>
+    <header>
+        <div> Mastermind Game </div>
+    </header>
 
-    <main></main>
+    <main>
+        <div class="game-area">
+            <div class="remaining-guess">Guesses remaining: <strong><?= $_SESSION['max_guess'] ?></strong></div>
+            <div class="code-input">
+                <input type="hidden" id="guess-input" maxlength="<?= strlen($_SESSION['locked_code']) ?>" readonly>
+                <div class="symbols-input">
+                    <?php for($c = 0; $c < strlen($locked_code); $c++){ ?>
+                        <img id="<?=$c+1?>" src="img/gray.gif" alt="image">
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <footer></footer>
+    <footer>
+        <div> Footer </div>
+    </footer>
 </body>
 
 
