@@ -38,27 +38,30 @@ $_SESSION['max_guess'] = $max_guess;
 </head>
 
 <body>
-    <header>
-        <div> Mastermind Game </div>
-    </header>
+    <div class=game_style">
+        <header class="header_game">
+            <div class="head_title"> Mastermind Game </div>
+        </header>
 
-    <main>
-        <div class="game-area">
-            <div class="remaining-guess">Guesses remaining: <strong><?= $_SESSION['max_guess'] ?></strong></div>
-            <div class="code-input">
-                <input type="hidden" id="guess-input" maxlength="<?= strlen($_SESSION['locked_code']) ?>" readonly>
-                <div class="symbols-input">
-                    <?php for($c = 0; $c < strlen($locked_code); $c++){ ?>
-                        <img id="<?=$c+1?>" src="img/gray.gif" alt="image">
-                    <?php } ?>
+        <main>
+            <div class="game_area">
+                <div class="remaining_guess">Guesses remaining: <strong><?= $_SESSION['max_guess'] ?></strong></div>
+                <div class="code_input">
+                    <input type="hidden" id="guess_input" maxlength="<?= strlen($_SESSION['locked_code']) ?>" readonly>
+                    <div class="symbols_input">
+                        <?php for($c = 0; $c < strlen($locked_code); $c++){ ?>
+                            <img id="<?=$c+1?>" src="img/gray.gif" alt="image">
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    </main>
+        </main>
 
-    <footer>
-        <div> Footer </div>
-    </footer>
+        <footer>
+            <div> Footer </div>
+        </footer>
+    </div>
+    
 </body>
 
 
