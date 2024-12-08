@@ -54,6 +54,26 @@ $_SESSION['max_guess'] = $max_guess;
                         <?php } ?>
                     </div>
                 </div>
+
+                <div class="guessing_history">
+
+                </div>
+
+                <div class="guessing_area">
+                    <div class="squares_row">
+                        <?php for($i = 0; $i < count($image); $i++){ ?>
+                            <div class="clickable_square">
+                                <a href="#"><img src="img/<?=$image[$i]?>" alt="image"></a>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+
+                <div class="submit_row">
+                    <a href="#">Reset</a>
+                    <a href="#">Submit</a>
+                </div>
+
             </div>
         </main>
 
@@ -63,8 +83,9 @@ $_SESSION['max_guess'] = $max_guess;
     </div>
     
 </body>
-
-
-
 </html>
+
 <script src="js/jquery-3.7.1.js"></script>
+<script>
+    
+</script>
