@@ -142,3 +142,36 @@ body {
     border-radius: 5px;
     text-decoration: none;
 }
+
+.mastermind_colors {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    float: left;
+}
+
+.master_blue img {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    border: 3px solid #008b8b;
+    border-radius: 5px;
+}
+
+.master_orange img {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    border: 3px solid orange;
+    border-radius: 5px;
+}
+
+.master_white img {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    border: 3px solid white;
+    border-radius: 5px;
+}

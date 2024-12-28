@@ -87,5 +87,34 @@ $_SESSION['max_guess'] = $max_guess;
 
 <script src="js/jquery-3.7.1.js"></script>
 <script>
-    
+    const images = [];
+    const len = <?= strlen($_SESSION['locked_code'])?>
+    const input_list = [];
+    let id = 0;
+    let number_guesses = 0;
+
+    <?php for($i = 1;$i <= count($image);$i++){?>
+        images.push("img" + <?=$i?> + ".gif")
+    <?php } ?>
+
+    function inputCode(code) {
+        if (input_list.length < len) {
+            input_list.push(code);
+            id++;
+            document.getElementById("guess_input").value = input_list.join("");
+            document.getElementById(id).src = "img/" + images[code];
+        } else {
+            alert("You have reached the maximum number of inputs");
+        }
+    }
+
+    function resetInput() {
+        input_list.length = 0;
+        document.getElementById("guess_input").value = "";
+        $(".img_input").empty();
+        for (let i = 1; i <= len; i++) {
+            $(".symbols-input").append("<img id='" + i + "' src='img/gray.gif' alt='image'>");
+        }
+        id = 0;
+    }
 </script>
