@@ -69,9 +69,20 @@ body {
     margin-top: 20px;
 }
 
-.img_input {
+.code_input {
     padding-bottom: 10px;
     border-bottom: 1px solid orange;
+}
+
+.symbols_input img {
+    width: 50px;
+    height: 50px;
+    background-color: #ffffff;
+    text-align: center;
+    line-height: 50px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 3px white solid;
 }
 
 .guessing_history {
@@ -94,6 +105,13 @@ body {
     justify-content: center;
     position: relative;
     float: left;
+}
+
+.guessing_row {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
 }
 
 .squares_row {
@@ -157,6 +175,11 @@ body {
     height: 50px;
     margin: 2px;
     border: 3px solid #008b8b;
+    border-radius: 5px;
+}
+
+#Win {
+    background-color: #008b8b;
     border-radius: 5px;
 }
 

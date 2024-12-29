@@ -61,24 +61,24 @@ $_SESSION['max_guess'] = $max_guess;
 
                 <div class="guessing_area">
                     <div class="squares_row">
-                        <?php for($i = 0; $i < count($image); $i++){ ?>
+                        <?php for($i = 0; $i < count($image)-1; $i++){ ?>
                             <div class="clickable_square">
-                                <a href="#"><img src="img/<?=$image[$i]?>" alt="image"></a>
+                                <a href="javascript:input_code(<?=$i?>)"><img src="img/<?=$image[$i]?>" alt="image"></a>
                             </div>
                         <?php } ?>
                     </div>
                 </div>
 
                 <div class="submit_row">
-                    <a href="#">Reset</a>
-                    <a href="#">Submit</a>
+                    <a href="javascript:reset_input()">Reset</a>
+                    <a href="javascript:submit_code()">Submit</a>
                 </div>
 
             </div>
         </main>
 
         <footer>
-            <div> Footer </div>
+            
         </footer>
     </div>
     
@@ -88,7 +88,7 @@ $_SESSION['max_guess'] = $max_guess;
 <script src="js/jquery-3.7.1.js"></script>
 <script>
     const images = [];
-    const len = <?= strlen($_SESSION['locked_code'])?>
+    const len = <?= strlen($_SESSION['locked_code'])?>;
     const input_list = [];
     let id = 0;
     let number_guesses = 0;
@@ -97,7 +97,8 @@ $_SESSION['max_guess'] = $max_guess;
         images.push("img" + <?=$i?> + ".gif")
     <?php } ?>
 
-    function inputCode(code) {
+    function input_code(code) {
+
         if (input_list.length < len) {
             input_list.push(code);
             id++;
@@ -108,13 +109,59 @@ $_SESSION['max_guess'] = $max_guess;
         }
     }
 
-    function resetInput() {
+    function reset_input() {
         input_list.length = 0;
         document.getElementById("guess_input").value = "";
-        $(".img_input").empty();
+        $(".symbols_input").empty();
         for (let i = 1; i <= len; i++) {
-            $(".symbols-input").append("<img id='" + i + "' src='img/gray.gif' alt='image'>");
+            $(".symbols_input").append("<img id='" + i + "' src='img/gray.gif' alt='image'>");
         }
         id = 0;
     }
+
+    function submit_code(){
+        const guess = document.getElementById("guess_input").value;
+        $.ajax({
+            url: "ajax.php?rep=" + guess + "&guess=" + number_guesses,
+            type: "POST",
+            dataType: "json",
+            success: function(json){
+                const ajax_code = json.array_locked_code;
+                const ajax_state = json.state;
+
+                if(ajax_state === 0){
+                    number_guesses++;
+                    $(".remaining_guess").text("Guesses remaining: " + (10-number_guesses));
+                    let img_row = "<div class='guessing_row'>";
+                    for(let i = 0; i < ajax_code.length; i++){
+                        if(ajax_code[i] === 2){
+                            img_row += "<div class='master_blue'><img src='img/" + images[guess[i]] + "' alt='image'></div>";
+                        }else if (ajax_code[i]=== 1 ){
+                            img_row += "<div class='master_orange'><img src='img/" + images[guess[i]] + "' alt='image'></div>";
+                        }else{
+                            img_row += "<div class='master_white'><img src='img/" + images[guess[i]] + "' alt='image'></div>";
+                        }
+                    }
+                    img_row += "</div>";
+                    $(".guessing_history").prepend(img_row);
+                    reset_input();
+                }else if (ajax_state === 1){
+                    let img_row = "<div id='win' class='guessing_row'>";
+                    for(let i = 0; i < guess.length; i++){
+                        img_row += "<div class='master_blue'><img src='img/" + images[guess[i]] + "' alt='image'></div>";
+                    }
+                    img_row += "</div>";
+                    $(".guessing_history").prepend(img_row);
+                    reset_input();
+                    alert("You win!");
+                }else if (ajax_state === 9){
+                    alert("Not enough symbols");
+                }else{
+                    alert("Game over");
+                }
+
+            }
+        })
+    }
+
 </script>
